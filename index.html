@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+    <title>Number Guessing Game</title>
+
+    <style>
+        *{
+            font-family: kosugi maru;
+        }
+        body {
+            margin: auto;
+            max-width: 40%;
+            text-align: center;
+            padding: 15px;
+            background-color: rgb(225, 255, 254);
+        }
+
+        body>div>div {
+            margin: 15px;
+        }
+
+        #guess-input {
+            min-width: 200px;
+        }
+
+        .outside {
+            border: 10px;
+            border-style: solid;
+            border-radius: 20px;
+            padding: 15px;
+            height: 40%;
+            background-color: rgb(255, 214, 124);
+        }
+        h1{
+            font-size: 80px;
+
+        }
+        .number{
+            font-size: 50px;
+        }
+        input{
+            font-size: inherit;
+            border-radius: 10px;
+            height: 50px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="outside">
+
+        <h1>Guess the Number (1-10)</h1>
+
+        <hr>
+
+        <div class="number">
+            <label for="guess-input">Guess:</label>
+            <input class="Arrows" type="number" id="guess-input" min="1" max="10" placeholder="Enter your guess">
+        </div>
+
+        <div>
+            <button id="guess-button" style="width: 200px; font-size: 30px; background-color: red; border-radius: 20px; height: 50px;">Submit Guess</button>
+        </div>
+
+        <div>
+            <p id="message"></p>
+        </div>
+        <hr>
+    </div>
+
+    <script>
+        // JavaScript code goes here   
+        var randomNumber = Math.floor(Math.random() * 10) + 1;
+        var guessInput = document.getElementById('guess-input');
+        var numGuesses = 0; 
+        var guessButton = document.getElementById('guess-button');
+        var message = document.getElementById('message');
+
+        guessButton.addEventListener('click', function() {
+            while(numGuesses != 3){
+                
+                var guess = parseInt(guessInput.value);
+                if (guess > randomNumber) {
+                    message.textContent = 'Too High! Try again! You have ' + (3 - numGuesses) + ' guesses left.';
+                    numGuesses++;
+                } else if (guess < randomNumber) {
+                    message.textContent = 'Too Low! Try again! You have ' + (3 - numGuesses) + ' guesses left.';
+                    numGuesses++;
+                }
+                else {
+                    message.textContent = 'Congratulations! You guessed the number! The number was ' + randomNumber + 
+                    '.\n Try and guess another number! You got it in ' + (numGuesses + 1) + ' guesses!';
+                    randomNumber = Math.floor(Math.random() * 10) + 1;
+                    numGuesses = 0;
+                    break;
+                }
+            }
+            if(numGuesses == 3){
+                message.textContent = 'You have run out of guesses! The number was ' + randomNumber + 
+                                        '.\n Try and guess another number!';
+                randomNumber = Math.floor(Math.random() * 10) + 1;
+                numGuesses = 0;
+            }
+
+        });
+
+
+
+        // TODO: Add a click listener to the button (will be covered more in zyBook 7.4)
+        // Example: document.getElementById('guess-button').addEventListener('click', function() { ... });
+
+    </script>
+</body>
+
+</html>
